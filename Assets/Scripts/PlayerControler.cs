@@ -8,10 +8,11 @@ public class PlayerControler : MonoBehaviour
     private float vertical;
     public float speed = 8f;
     private Rigidbody2D body;
-    private bool onArea=false;
+
 
     void Awake()
     {
+
         body = GetComponent<Rigidbody2D>();
     }
 
@@ -26,6 +27,7 @@ public class PlayerControler : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
+        
     }
 
     private void FixedUpdate()
@@ -33,13 +35,18 @@ public class PlayerControler : MonoBehaviour
         // body.velocity = new Vector2(vertical*speed,body.velocity.y);
         // body.velocity = new Vector2(horizontal*speed,body.velocity.x);
 
-       
-        body.velocity = speed * new Vector2(horizontal, vertical).normalized;
-        
+
+
+
+            body.velocity = speed * new Vector2(horizontal, vertical).normalized;
+
+
         
     }
+    //Prefab - shoot
+    private void LateUpdate() {
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x,-8,8),Mathf.Clamp(transform.position.y,-4,4),transform.position.z);    
+    }
 
-     void OnTriggerExit2D(Collider2D collider) {
-        onArea=true;
-    } 
+
 }
