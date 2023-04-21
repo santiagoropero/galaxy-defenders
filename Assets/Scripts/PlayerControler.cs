@@ -8,6 +8,9 @@ public class PlayerControler : MonoBehaviour
     private float vertical;
     public float speed = 8f;
     private Rigidbody2D body;
+    public GameObject playerBulletGO; // this is our player's bullet prefab
+    public GameObject bulletPosition01;
+    public GameObject bulletPosition02;
 
 
     void Awake()
@@ -25,6 +28,15 @@ public class PlayerControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("space"))
+        {
+            GameObject bullet01 = (GameObject) Instantiate(playerBulletGO);
+            bullet01.transform.position = bulletPosition01.transform.position; // set the bullet initial position
+
+            GameObject bullet02 = (GameObject) Instantiate(playerBulletGO);
+            bullet02.transform.position = bulletPosition02.transform.position; // set the bullet initial position            
+        }
+
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
         
@@ -46,6 +58,7 @@ public class PlayerControler : MonoBehaviour
     //Prefab - shoot
     private void LateUpdate() {
         transform.position = new Vector3(Mathf.Clamp(transform.position.x,-8,8),Mathf.Clamp(transform.position.y,-4,4),transform.position.z);    
+       Debug.Log(transform.position); 
     }
 
 
